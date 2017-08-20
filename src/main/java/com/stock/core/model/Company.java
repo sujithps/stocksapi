@@ -1,10 +1,12 @@
 package com.stock.core.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Version;
 
 @Entity
 public class Company {
@@ -13,15 +15,18 @@ public class Company {
 	private String companyID;
 
 	@ElementCollection(targetClass = String.class)
-	private List<String> countries;
-	
+	private List<String> countries = new ArrayList<String>();
+
 	private int budget;
 	private String budgetUnit;
 	private int bid;
 	private String bidUnit;
-	
+
+	@Version
+	private Integer version;
+
 	@ElementCollection(targetClass = String.class)
-	private List<String> categories;
+	private List<String> categories = new ArrayList<String>();
 
 	public String getCompanyID() {
 		return companyID;
@@ -79,12 +84,19 @@ public class Company {
 		this.categories = categories;
 	}
 
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
 	@Override
 	public String toString() {
-		return "Company [companyID=" + companyID + ", countries=" + countries
-				+ ", budget=" + budget + ", budgetUnit=" + budgetUnit
-				+ ", bid=" + bid + ", bidUnit=" + bidUnit + ", categories="
-				+ categories + "]";
+		return String
+				.format("Company [companyID=%s, budget=%s, budgetUnit=%s, bid=%s, bidUnit=%s]",
+						companyID, budget, budgetUnit, bid, bidUnit);
 	}
 
 }

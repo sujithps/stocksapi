@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.stock.core.data.dbo.CompanyRepository;
-import com.stock.core.model.Company;
-import com.stock.core.model.TempApplication;
+import com.stock.core.services.task.TradeTask;
 
 /**
  * @author Sujith PS
@@ -18,32 +17,26 @@ import com.stock.core.model.TempApplication;
  */
 @RestController
 @CrossOrigin
-@ComponentScan({ "com.stock.core.data.dbo" })
+@ComponentScan({ "com.stock.core.data.dbo", "com.stock.core.services.task" })
 @RequestMapping("/stock")
 public class ExchangeService {
 
 	@Autowired
 	private CompanyRepository companyRepository;
 
+	@Autowired
+	private TradeTask tradeTask;
+
 	@RequestMapping(path = "/{countryCode}/{category}/{baseBid}", method = RequestMethod.GET)
 	public String performTheBestTrade(
 			@PathVariable(value = "countryCode") String countryCode,
 			@PathVariable(value = "category") String category,
-			@PathVariable(value = "baseBid") String baseBid) {
+			@PathVariable(value = "baseBid") int baseBid) {
 
-		for (Company company : TempApplication.getTempListCompanies()) {
-			companyRepository.save(company);
-		}
+		String tradeResponse = tradeTask
+				.doTrade(countryCode, category, baseBid);
 
-		for (Company company : companyRepository.findAll()) {
-			System.out.println(company);
-		}
-		
-		System.out.println("---------------");
-
-		System.out.println(companyRepository.findByCountries("US"));
-
-		return (countryCode + " , " + category + " , " + baseBid);
+		return tradeResponse;
 	}
 
 }
