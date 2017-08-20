@@ -2,13 +2,25 @@ package com.stock.core.model;
 
 import java.util.List;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Company {
+
+	@Id
 	private String companyID;
+
+	@ElementCollection(targetClass = String.class)
 	private List<String> countries;
+	
 	private int budget;
 	private String budgetUnit;
 	private int bid;
 	private String bidUnit;
+	
+	@ElementCollection(targetClass = String.class)
 	private List<String> categories;
 
 	public String getCompanyID() {
