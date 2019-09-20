@@ -1,3 +1,5 @@
+#How to run
+
 Open CMD in the project folder (..../stockapi )
 
 Run the following commands to start the service.
@@ -17,23 +19,27 @@ Run the following commands to start the service.
  
  Shortcut
  ---------
- To run a project in place without building a jar first you can use the “bootRun” task:
+ To run a project in place without building a jar first you can use the â€œbootRunâ€ task:
 
 >> gradle bootRun
 
 
 
-
-
-References : 
+#References : 
 
  Jar to War : http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#build-tool-plugins-gradle-packaging
  Managing Cross origin : https://spring.io/guides/gs/rest-service-cors 
 
 
 
-Code stack
+#Code stack
 
 ----------------
 - Java 1.8
 - Spring
+
+
+#Demo Site
+-------------
+
+https://stark-cliffs-91717.herokuapp.com/
